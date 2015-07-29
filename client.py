@@ -5,6 +5,7 @@ print "Connected to server."
 packet=[]
 for i in range(0,3):
 	packet.append(raw_input('Data: '))
-s.sendall(str(packet))
+packet=packet[0]+';'+packet[1]+';'+packet[2]
+s.sendall(packet)
 print "Data is sent to server."
 s.close()
