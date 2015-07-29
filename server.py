@@ -10,13 +10,14 @@ def recvdata():
 	print "Connected to Client & waiting for data."
 	packet=var1.recv(100)
 	print "Received Data: ", packet
-	return packet
 	s.close()
+	return packet
 
 def senddata():
 	s=serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
 	data=extractdata()
 	print data
+	recvdata()
 
 def extractdata():
 	data=recvdata()
