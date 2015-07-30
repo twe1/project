@@ -17,7 +17,7 @@ def senddata():
 	s=serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
 	data=extractdata()
 	print data
-	recvdata()
+	
 
 def extractdata():
 	data=recvdata()
@@ -25,7 +25,8 @@ def extractdata():
 	sms='EmpID: ' +data[0]+'\nDpt ID: ' +data[1]+'\nCode: '+data[2]
 	return sms
 
-senddata()
+while True:
+	senddata()
 
 
 
