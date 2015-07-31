@@ -1,18 +1,21 @@
 import threading
-import time
-s=serial.Serial('/dev/ttyUSB1', 9600, timeout=1)
+import serial
+
+s=serial.Serial('/dev/ttyUSB0', 9600, timeout=0.1)
 
 def write():
-	data=raw_input("Server: ")
-	s.write(data)
+	while True:
+		data=raw_input()
+		s.write(data)
 
 def read():
 	while True:
-	data=s.read(100)
-	if len(data)>0:
-		print "Client :" data
+		data=s.read(100)
+		if len(data)>0:
+			print data
 
 w=threading.Thread(target=write)
 r=threading.Thread(target=read)
-write.start()
-read.start()
+w.start()
+r.start()
+
