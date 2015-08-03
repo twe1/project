@@ -9,4 +9,4 @@ while True:
 	packet=packet[0]+';'+packet[1]+';'+packet[2]
 	s.sendall(packet)
 	print "Data is sent to server."
-	s.close()
+	
