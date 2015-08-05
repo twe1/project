@@ -51,7 +51,7 @@ class serverduty():									#class contains fns to receive,extract & send data f
 		return fData
 
 	def writetoXbee(self,fData):							#fn to send the data received from client to gsm modem
-		print fData
+		print 'write to xb: ', fData
 		self.ser.write(fData)
 
 	def readfromXbee(self):
