@@ -9,3 +9,8 @@ while True:
 	if len(fData)>0:
 		s.write(fData)
 		print 'sending: ',fData
+
+
+
+
+		
