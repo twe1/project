@@ -55,6 +55,7 @@ class serverduty():									#class contains fns to receive,extract & send data f
 		self.ser.write(fData)
 
 	def readfromXbee(self):
+		print 'in fn read to xb: '
 		while True:
 			xbdata=self.ser.read(100)
 			if len(xbdata)>0:
