@@ -31,6 +31,7 @@ class serverduty():									#class contains fns to receive,extract & send data f
 	def main(self):									#main() calls all fns in this class 
 		cData = self.clientData()
 		fData = self.extractClientData(cData)
+		print "write to xb..", fData
 		self.writetoXbee(fData)
 
 
