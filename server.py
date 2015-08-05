@@ -20,7 +20,8 @@ class serverduty():									#class contains fns to receive,extract & send data f
 
 		self.db = database()							#creating object for outside class database() 
 		
-		
+		self.ser=serial.Serial('/dev/ttyUSB0',9600, timeout=1)
+
 		self.s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 		self.s.bind(('0.0.0.0', 8000))
 		self.s.listen(1)
@@ -30,7 +31,7 @@ class serverduty():									#class contains fns to receive,extract & send data f
 	def main(self):									#main() calls all fns in this class 
 		cData = self.clientData()
 		fData = self.extractClientData(cData)
-		self.dataToSend(fData)
+		self.writetoXbee(fData)
 
 
 	def clientData(self):								#fn to receive data from client
@@ -48,11 +49,19 @@ class serverduty():									#class contains fns to receive,extract & send data f
 		fData = 'EmpID: ' +data[0]+'\nDpt ID: ' +data[1]+'\nCode: '+data[2]
 		return fData
 
-	def dataToSend(self,fData):							#fn to send the data received from client to gsm modem
+	def writetoXbee(self,fData):							#fn to send the data received from client to gsm modem
 		print fData
+		self.ser.write(fData)
+
+	def readfromXbee(self):
+		xbdata=self.ser.read(100)
+		print xbdata
+	
+
 
 
 s=serverduty()
 while True:
 	s.main()
+
 
