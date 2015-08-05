@@ -36,7 +36,7 @@ class serverduty():									#class contains fns to receive,extract & send data f
 	def clientData(self):								#fn to receive data from client
 		while True:
 			cData = self.a.recv(100)
-			if len(packet)>0:
+			if len(cData)>0:
 				print "Received Client Data: ", cData
 				return cData
 
