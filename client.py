@@ -1,6 +1,6 @@
 import socket
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-s.connect(('localhost', 8000))
+s.connect(('192.168.1.24', 8000))
 print "Connected to server."
 while True:	
 	packet=[]
