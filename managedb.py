@@ -3,7 +3,7 @@ import sqlite3
 class database():
 
 	def __init__(self):
-		self.s=sqlite3.connect('report.db')
+		self.s=sqlite3.connect('filename.db')
 		self.c=self.s.cursor()
 
 	def createTable(self):

@@ -5,61 +5,54 @@ import sqlite3
 class database():
 
 	def __init__(self):
-		self.s=sqlite3.connect('report.db')
-		self.c=self.s.cursor()
+		self.s = sqlite3.connect('filename.db')
+		self.c = self.s.cursor()
 
-	def insertData(self,eid,dpt,code):
-		self.c.execute('''INSERT INTO tb(empid,dept,code) VALUES(?,?,?)''',(eid,dpt,code))
+	def inputData(self,eid,dpt,code):								#fn to input data(eid,dpt,code) to table
+		self.c.execute('''INSERT INTO tb(empid,dept,code) VALUES(?,?,?)''',(eid,dpt,code))	#tb is the name of the table created
 		self.s.commit()
 
 	def close():
 		self.s.close()	
 
-class employee():
+class serverduty():									#class contains fns to receive,extract & send data from client  
 	def __init__(self):
 
-		self.db=database()
-
-		#self.xbee = serial.Serial('/dev/ttyUSB0', 9600, timeout = 1)
-
+		self.db = database()							#creating object for outside class database() 
+		
+		
 		self.s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 		self.s.bind(('0.0.0.0', 8000))
 		self.s.listen(1)
-		self.sock,self.var2 = self.s.accept()
-		
-	def main(self):
-		packet = self.recvdata()
-		sms = self.extractdata(packet)
-		self.senddata(sms)
+		self.a,self.b = self.s.accept()
 
-	def recvdata(self):
-		while True:
-			packet = self.sock.recv(100)
-			
+
+	def main(self):									#main() calls all fns in this class 
+		cData = self.clientData()
+		fData = self.extractClientData(cData)
+		self.dataToSend(fData)
+
+
+	def clientData(self):								#fn to receive data from client
+		while true:
+			cData = self.a.recv(100)
 			if len(packet)>0:
-				print "Received Data: ", packet
-				return packet
+				print "Received Client Data: ", cData
+				return cData
 
-	def senddata(self,sms):
-		print sms
-		
-	def extractdata(self,packet):
-		data = packet.split(';')
+	def extractClientData(self,cData):						#fn to extract the data received from client
+		data = cData.split(';')								
 
-		self.db.insertData(data[0],data[1],data[2])
+		self.db.inputData(data[0],data[1],data[2])				#calls object db in fn init(), where it will call outside class fn inputData()
 
-		sms = 'EmpID: ' +data[0]+'\nDpt ID: ' +data[1]+'\nCode: '+data[2]
-		return sms
+		fData = 'EmpID: ' +data[0]+'\nDpt ID: ' +data[1]+'\nCode: '+data[2]
+		return fData
 
-emp=employee()
+	def dataToSend(self,fData):							#fn to send the data received from client to gsm modem
+		print fData
+
+
+s=serverduty()
 while True:
-	emp.main()
+	s.main()
 
-		
-
-		
-
-	
-		
-		
-		
