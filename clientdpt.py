@@ -5,3 +5,4 @@ while True:
 	fData=s.read(100)
 	if len(fData)>0:
 		s.write(fData)
+		

@@ -33,7 +33,7 @@ class serverduty():									#class contains fns to receive,extract & send data f
 		fData = self.extractClientData(cData)
 		print "write to xb..", fData
 		self.writetoXbee(fData)
-
+		self.readfromXbee()
 
 	def clientData(self):								#fn to receive data from client
 		while True:
@@ -47,7 +47,7 @@ class serverduty():									#class contains fns to receive,extract & send data f
 
 		self.db.inputData(data[0],data[1],data[2])				#calls object db in fn init(), where it will call outside class fn inputData()
 
-		fData = 'EmpID: ' +data[0]+'\nDpt ID: ' +data[1]+'\nCode: '+data[2]
+		fData = 'EmpID: ' +data[0]+';Dpt ID: ' +data[1]+';Code: '+data[2]
 		return fData
 
 	def writetoXbee(self,fData):							#fn to send the data received from client to gsm modem
@@ -55,9 +55,13 @@ class serverduty():									#class contains fns to receive,extract & send data f
 		self.ser.write(fData)
 
 	def readfromXbee(self):
-		xbdata=self.ser.read(100)
-		print xbdata
-	
+		while True:
+			xbdata=self.ser.read(100)
+			if len(xbdata)>0:
+				print xbdata
+				break
+		
+		
 
 
 
